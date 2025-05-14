@@ -1,0 +1,28 @@
+<h2>Contactez-nous</h2>
+
+<p-messages [(value)]="messages" [enableService]="false" [closable]="true"></p-messages>
+
+<form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="p-fluid grid">
+  <div class="field col-12">
+    <label for="email">Email</label>
+    <input id="email" type="email" pInputText formControlName="email" />
+    <small class="p-error" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+      <span *ngIf="email?.errors?.['required']">L'email est requis.</span>
+      <span *ngIf="email?.errors?.['email']">L'email n'est pas valide.</span>
+    </small>
+  </div>
+
+  <div class="field col-12">
+    <label for="message">Message</label>
+    <textarea id="message" pInputTextarea formControlName="message" rows="5"></textarea>
+    <small class="p-error" *ngIf="message?.invalid && (message?.dirty || message?.touched)">
+      <span *ngIf="message?.errors?.['required']">Le message est requis.</span>
+      <span *ngIf="message?.errors?.['maxlength']">Le message ne doit pas dépasser 300 caractères.</span>
+    </small>
+     <small>{{ message?.value?.length || 0 }} / 300</small>
+  </div>
+
+  <div class="field col-12">
+    <p-button label="Envoyer" type="submit" [disabled]="contactForm.invalid"></p-button>
+  </div>
+</form>
